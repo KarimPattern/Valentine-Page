@@ -47,6 +47,8 @@
             width: 155px;
             font-size: 1rem;
 
+            transition: all 0.5s;
+
             font-family: "Comic Relief", system-ui;
             font-weight: 00;
             font-style: normal;
@@ -196,17 +198,60 @@
         <img id="skeleton" src="" alt="">
     </div>
 
-    <div class="mainframe" id="first"">
-        <h1>Hi Jessie, ich hab eine wichtige Frage für dich...</h1>
 
-        <div class=" button-row">
-        <button class="button" id="nextbutton1">Ja?</button>
-        <button class="button" id="playBtn">Nee, danke.</button>
-    </div>
+
+
+
+    <div class="mainframe" id="first">
+        <h1 id="firsttext">Hi Jessie, ich hab eine wichtige Frage für dich...</h1>
+
+        <div class="button-row">
+            <button class="button" id="nextbutton1" style="opacity: 0;">Ja?</button>
+            <button class="button" id="playBtn" style="opacity: 0;">Nee, danke.</button>
+        </div>
     </div>
 
     <script>
+        const item = document.getElementById("firsttext")
+        var i = 0;
+        var txt = item.innerHTML
+        item.innerHTML = ""
+        var speed = 120; /* Typing speed in ms */
+        function typeWriter() {
+            if (i < txt.length) {
+                item.innerHTML += txt.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+
+            } else {
+                setTimeout(typeWriter, speed * 2)
+                document.getElementById("nextbutton1").style.opacity = '1';
+                document.getElementById("playBtn").style.opacity = '1';
+            }
+        }
+        typeWriter(); /* Start on load */
+    </script>
+
+    <script>
         document.getElementById('nextbutton1').addEventListener('click', () => {
+            const item = document.getElementById("2text")
+            var i = 0;
+            var txt = item.innerHTML
+            item.innerHTML = ""
+            var speed = 120; /* Typing speed in ms */
+            function typeWriter() {
+                if (i < txt.length) {
+                    item.innerHTML += txt.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+
+                } else {
+                    setTimeout(typeWriter, speed * 2)
+                    document.getElementById("nextbutton2").style.opacity = '1';
+                }
+            }
+            typeWriter(); /* Start on load */
+
             document.getElementById('first').style.display = 'none';
             document.getElementById('second').style.display = 'block';
         });
@@ -233,15 +278,35 @@
     </script>
 
     <div class="mainframe" id="second" style="display: none;">
-        <h1>Gut so... >:)</h1>
+        <h1 id="2text">Gut so... :)</h1>
 
         <div class="button-row">
-            <button class="button" id="nextbutton2">Zur Frage</button>
+            <button class="button" id="nextbutton2" style="opacity: 0;">Zur Frage</button>
         </div>
     </div>
 
     <script>
         document.getElementById('nextbutton2').addEventListener('click', () => {
+            const item = document.getElementById("3text")
+            var i = 0;
+            var txt = item.innerHTML
+            item.innerHTML = ""
+            var speed = 120; /* Typing speed in ms */
+            function typeWriter() {
+                if (i < txt.length) {
+                    item.innerHTML += txt.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+
+                } else {
+                    setTimeout(typeWriter, speed * 5)
+                    document.getElementById("click14").style.opacity = '1';
+                    document.getElementById("click15").style.opacity = '1';
+                }
+            }
+            typeWriter(); /* Start on load */
+
+
             document.getElementById('second').style.display = 'none';
             document.getElementById('third').style.display = 'block';
 
@@ -263,12 +328,12 @@
 
 
     <div class="mainframe" id="third" style="display: none;">
-        <h1>Willst du mein Valentin sein? ❤️</h1>
+        <h1 id="3text">Willst du mein Valentin sein? ❤️</h1>
 
 
         <div class="button-row">
-            <button class="button" id="click14">JAA!!!</button>
-            <button class="button" id="click15">Wtf nein?</button>
+            <button class="button" id="click14" style="opacity: 0;">JAA!!!</button>
+            <button class="button" id="click15" style="opacity: 0;">Wtf nein?</button>
         </div>
     </div>
 
@@ -339,7 +404,7 @@
             setTimeout(() => {
                 document.getElementById('fourth').style.display = 'none';
                 document.getElementById('fifth').style.display = 'block';
-            }, 15000);
+            }, 20000);
         });
 
         document.querySelector('#click15').addEventListener('click', () => {
@@ -393,6 +458,7 @@
 
 
         <div class="countdown-container">
+            <h1 style="font-size: 1.5rem; margin-bottom: -14px;">Wird freigeschalten in...</h1>
             <div class="countdown-values">
                 <div class="countdown-unit">
                     <div class="value" id="days">0</div>
