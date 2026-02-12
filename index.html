@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hihi</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Comic+Relief:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background-color: rgb(240, 157, 224);
+
+            font-family: "Chewy", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .mainframe {
+            width: 80%;
+            margin: auto;
+            margin-top: 20%;
+        }
+
+        h1 {
+            color: rgb(223, 92, 177);
+            text-align: center;
+            font-size: 2.6rem;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button {
+            border-radius: 500px;
+            border: 0px;
+            background-color: rgb(223, 92, 177);
+            color: rgb(230, 209, 225);
+            padding: 12px;
+            width: 155px;
+            font-size: 1rem;
+
+            font-family: "Comic Relief", system-ui;
+            font-weight: 00;
+            font-style: normal;
+        }
+
+        #skeleton-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #skeleton {
+            max-width: 80vw;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+
+            margin: auto;
+        }
+
+
+
+        .loader {
+            text-align: center;
+        }
+
+        h3 {
+            color: rgb(223, 92, 177);
+            text-align: center;
+            font-size: 1.6rem;
+        }
+
+        .percent {
+            font-size: 3rem;
+            font-weight: 300;
+            margin: 20px 0;
+            color: #fff;
+        }
+
+        .bar {
+            width: 300px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            margin: -20px auto;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: white;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+
+
+        .countdown-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .countdown-values {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: white;
+        }
+
+        .countdown-unit {
+            text-align: center;
+        }
+
+        .countdown-unit .value {
+            font-size: 4rem;
+            font-weight: bold;
+            color: rgb(223, 92, 177);
+        }
+
+        .countdown-unit .label {
+            font-size: 1.2rem;
+            color: rgb(223, 92, 177);
+            margin-top: -10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+        const heartsEl = document.getElementById('hearts');
+
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💖';
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heartsEl.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        //setInterval(createHeart, 300);
+    </script>
+
+    <div id="skeleton-overlay" style="display: none;">
+        <img id="skeleton" src="" alt="">
+    </div>
+
+    <div class="mainframe" id="first"">
+        <h1>Hi Jessie, ich hab eine wichtige Frage für dich...</h1>
+
+        <div class=" button-row">
+        <button class="button" id="nextbutton1">Ja?</button>
+        <button class="button" id="playBtn">Nee, danke.</button>
+    </div>
+    </div>
+
+    <script>
+        document.getElementById('nextbutton1').addEventListener('click', () => {
+            document.getElementById('first').style.display = 'none';
+            document.getElementById('second').style.display = 'block';
+        });
+
+
+        const audio = new Audio('./media/raww.mp3');
+        document.getElementById('playBtn').addEventListener('click', () => {
+
+            const frame = document.getElementById('skeleton-overlay');
+            const img = document.getElementById('skeleton');
+
+            frame.style.display = 'block';
+            img.style.display = 'block';
+            img.src = './media/skeleton.gif';
+
+            audio.play();
+
+            setTimeout(() => {
+                frame.style.display = 'none';
+                img.style.display = 'none';
+                img.src = '';
+            }, 2100);
+        });
+    </script>
+
+    <div class="mainframe" id="second" style="display: none;">
+        <h1>Gut so... >:)</h1>
+
+        <div class="button-row">
+            <button class="button" id="nextbutton2">Zur Frage</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('nextbutton2').addEventListener('click', () => {
+            document.getElementById('second').style.display = 'none';
+            document.getElementById('third').style.display = 'block';
+
+            const heartsEl = document.getElementById('hearts');
+
+            // Create floating hearts
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.innerHTML = '💖';
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heartsEl.appendChild(heart);
+                setTimeout(() => heart.remove(), 6000);
+            }
+            setInterval(createHeart, 300);
+        });
+    </script>
+
+
+    <div class="mainframe" id="third" style="display: none;">
+        <h1>Willst du mein Valentin sein? ❤️</h1>
+
+
+        <div class="button-row">
+            <button class="button" id="click14">JAA!!!</button>
+            <button class="button" id="click15">Wtf nein?</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import confetti from "https://cdn.skypack.dev/canvas-confetti";
+        const doItNow = (evt, hard) => {
+            const direction = Math.sign(lastX - evt.clientX);
+            lastX = evt.clientX;
+            const particleCount = hard ? r(122, 245) : r(2, 15);
+            confetti({
+                particleCount,
+                angle: r(90, 90 + direction * 30),
+                spread: r(45, 80),
+                origin: {
+                    x: evt.clientX / window.innerWidth,
+                    y: evt.clientY / window.innerHeight
+                }
+            });
+        };
+        const doIt = (evt) => {
+            doItNow(evt, false);
+        };
+
+        const doItHard = (evt) => {
+            doItNow(evt, true);
+        };
+
+        let lastX = 0;
+        const butt = document.querySelector("#click14");
+        butt.addEventListener("mousemove", doIt);
+        butt.addEventListener("click", doItHard);
+
+        function r(mi, ma) {
+            return parseInt(Math.random() * (ma - mi) + mi);
+        }
+    </script>
+
+    <script>
+        document.querySelector('#click14').addEventListener('click', () => {
+            document.getElementById('third').style.display = 'none';
+            document.getElementById('fourth').style.display = 'block';
+
+            //
+
+
+            let percent = 0;
+            const percentEl = document.getElementById('percent');
+            const barEl = document.getElementById('bar');
+
+
+            // Accelerating loading
+            const startTime = Date.now();
+            function update() {
+                const elapsed = (Date.now() - startTime) / 500;
+                let percent = elapsed * elapsed;
+
+                percentEl.textContent = Math.floor(percent * 10) / 10 + '%';
+                percentEl.style.fontSize = (3 + 5 * (percent / 2500)) + "rem"
+                barEl.style.width = Math.min(500, percent) + '%';
+
+
+                if (percent < 2480) {
+                    requestAnimationFrame(update);
+                }
+            }
+            update();
+
+            setTimeout(() => {
+                document.getElementById('fourth').style.display = 'none';
+                document.getElementById('fifth').style.display = 'block';
+            }, 15000);
+        });
+
+        document.querySelector('#click15').addEventListener('click', () => {
+            const frame = document.getElementById('skeleton-overlay');
+            const img = document.getElementById('skeleton');
+
+            frame.style.display = 'block';
+            img.style.display = 'block';
+            img.src = './media/skeleton.gif';
+
+            audio.play();
+
+            setTimeout(() => {
+                frame.style.display = 'none';
+                img.style.display = 'none';
+                img.src = '';
+            }, 2100);
+        });
+    </script>
+
+
+
+    <div class="mainframe" id="fourth" style="display: none;">
+        <h1 style="font-size: 3.2rem;">Yipppieee!!!</h1>
+
+        <div style="width: 100%; margin: auto; justify-content: center; display: flex;">
+            <img src="./media/catspin.gif" alt="">
+        </div>
+
+
+
+
+        <div class="loader">
+            <h3>Berechne wie sehr ich dich liebe...</h3>
+            <div class="percent" id="percent">0%</div>
+            <div class="bar">
+                <div class="bar-fill" id="bar"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mainframe" id="fifth" style="display: none;">
+        <h1>Ich hab da ein paar Sachen für dich (bald zumindest) :D</h1>
+
+        <div class="button-row" style="gap: 0px;">
+            <img src="./media/box.png" alt="" style="width: 7rem;">
+            <img src="./media/box.png" alt="" style="width: 7rem;">
+            <img src="./media/box.png" alt="" style="width: 7rem;">
+        </div>
+
+
+        <div class="countdown-container">
+            <div class="countdown-values">
+                <div class="countdown-unit">
+                    <div class="value" id="days">0</div>
+                    <div class="label">Tage</div>
+                </div>
+                <div class="countdown-unit">
+                    <div class="value" id="hours">0</div>
+                    <div class="label">Stunden</div>
+                </div>
+                <div class="countdown-unit">
+                    <div class="value" id="minutes">0</div>
+                    <div class="label">Minuten</div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function updateCountdown() {
+                // Set target date to Valentine's Day 2026
+                const targetDate = new Date(2026, 1, 14, 0, 0, 0).getTime();
+                const now = new Date().getTime();
+                const timeRemaining = Math.max(0, targetDate - now);
+
+                // Calculate time units
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                // Update display
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+
+            }
+
+            // Update immediately and then every second
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        </script>
+    </div>
+
+</body>
+
+</html>
